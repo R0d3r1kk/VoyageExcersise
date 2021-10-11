@@ -1,24 +1,25 @@
 # VoyageExcersise
 Basic service API for billing invoices
-##Tecnologies
->Net core 5, C#
->Sqlite
->Swagger UI
->DAL(Data Access Layer) Entitty Framework
+## Tecnologies
 
-##Controllers
->CrudController
->InvoiceController
+- Net core 5, C#
+- Sqlite
+- Swagger UI
+- DAL(Data Access Layer) Entitty Framework
 
-###CrudController
->Basic db logic requests
+## Controllers
+> CrudController
+> InvoiceController
 
-###Invoice Controller
->Billing logic requests
+### CrudController
+> Basic db logic requests
+
+### Invoice Controller
+> Billing logic requests
 
 # VoyageApiTest
 Basic Testing Api
 
 
-#Notes
+# Notes
 - For external manage the db is located under root path in a folder "db".
