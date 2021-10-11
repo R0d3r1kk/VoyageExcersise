@@ -1,0 +1,85 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/rodrigo.hernandez/Documents/ArkusNexus/Projects/VoyageExcercise/VoyageExcercise/VoyageExcercise.csproj": {}
+  },
+  "projects": {
+    "/Users/rodrigo.hernandez/Documents/ArkusNexus/Projects/VoyageExcercise/VoyageExcercise/VoyageExcercise.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/rodrigo.hernandez/Documents/ArkusNexus/Projects/VoyageExcercise/VoyageExcercise/VoyageExcercise.csproj",
+        "projectName": "VoyageExcercise",
+        "projectPath": "/Users/rodrigo.hernandez/Documents/ArkusNexus/Projects/VoyageExcercise/VoyageExcercise/VoyageExcercise.csproj",
+        "packagesPath": "/Users/rodrigo.hernandez/.nuget/packages/",
+        "outputPath": "/Users/rodrigo.hernandez/Documents/ArkusNexus/Projects/VoyageExcercise/VoyageExcercise/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/rodrigo.hernandez/.config/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[5.0.10, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerGen": {
+              "target": "Package",
+              "version": "[6.2.2, )"
+            },
+            "Swashbuckle.AspNetCore.SwaggerUI": {
+              "target": "Package",
+              "version": "[6.2.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.401/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
