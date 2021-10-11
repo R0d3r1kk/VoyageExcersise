@@ -1,4 +1,6 @@
 ﻿using System;
+using VoyageExcercise.Helpers;
+
 namespace VoyageExcercise.Models
 {
     /// <summary>
@@ -8,38 +10,10 @@ namespace VoyageExcercise.Models
     {
         public string description { get; set; }
         public int service_id { get; set; }
-        public string date_created
-        {
-            get
-            {
-                if(string.IsNullOrEmpty(date_created))
-                {
-                    return DateTime.Now.ToLongDateString();
-                }
-
-                return date_created;
-            }
-            set {
-                date_created = value;
-            }
-        }
-        public string date_updated
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(date_updated))
-                {
-                    return DateTime.Now.ToLongDateString();
-                }
-
-                return date_updated;
-            }
-            set
-            {
-                date_updated = value;
-            }
-        }
+        public string date_created { get; set; }
+        public string date_updated { get; set; }
     }
+
     /// <summary>
     /// Payment Request Model
     /// </summary>
@@ -48,6 +22,26 @@ namespace VoyageExcercise.Models
         public float amount { get; set; }
 
         public string desc { get; set; }
+
+        public string status { get; set; }
+
+        public string type { get; set; }
+
+        public string ext_src_response { get; set; }
+    }
+
+    /// <summary>
+    /// An example of a transaction with a payment in one model
+    /// </summary>
+    public class PaymentWTransactionRequest
+    {
+        public EnumService service_id { get; set; }
+
+        public float amount { get; set; }
+
+        public string payment_desc { get; set; }
+
+        public string transaction_desc { get; set; }
 
         public string status { get; set; }
 
