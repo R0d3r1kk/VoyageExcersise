@@ -15,12 +15,10 @@ namespace VoyageExcercise.DAL.Models
         public int transaction_id { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string date_created { get; set; }
+        public DateTime date_created { get; set; }
 
         [Required]
-        [StringLength(30)]
-        public string date_updated { get; set; }
+        public DateTime date_updated { get; set; }
 
         [StringLength(50)]
         public string description { get; set; }

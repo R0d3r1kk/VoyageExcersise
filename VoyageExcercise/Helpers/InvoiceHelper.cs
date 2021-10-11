@@ -63,7 +63,9 @@ namespace VoyageExcercise.Helpers
         {
             try
             {
-                var invoices = context.Invoice.Where(i => DateTime.Parse(i.date) >= start_date && DateTime.Parse(i.date) <= end_date).ToList();
+                //Here we are calling a list before do the filter because we are calling a view like a DBbSet
+                //and a view is filed when is triggered or called and not just referenced.
+                var invoices = context.Invoice.ToList().Where(i => i.date >= start_date && i.date <= end_date).ToList();
                 return invoices;
             }
             catch (Exception ex)

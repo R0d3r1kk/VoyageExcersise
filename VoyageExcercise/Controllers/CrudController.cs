@@ -37,6 +37,13 @@ namespace VoyageExcercise.Controllers
         /// <summary>
         /// Get all the transactions from db.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// page = 0
+        /// pagesize = 10
+        /// </remarks>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Transactions List</returns>    
         [HttpPost("GetAllTransactions")]
         public List<Transactions> GetAllTransactions(int page, int pagesize)
@@ -130,6 +137,13 @@ namespace VoyageExcercise.Controllers
         /// <summary>
         /// Get all the payments from db.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// page = 0
+        /// pagesize = 10
+        /// </remarks>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Payment List</returns>    
         [HttpPost("GetAllPayments")]
         public List<Payments> GetAllPayments(int page, int pagesize)
@@ -222,6 +236,13 @@ namespace VoyageExcercise.Controllers
         /// <summary>
         /// Get all the services from db.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// page = 0
+        /// pagesize = 10
+        /// </remarks>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Service List</returns>    
         [HttpPost("GetAllServices")]
         public List<CServices> GetAllServices(int page, int pagesize)

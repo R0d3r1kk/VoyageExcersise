@@ -10,8 +10,8 @@ namespace VoyageExcercise.Models
     {
         public string description { get; set; }
         public int service_id { get; set; }
-        public string date_created { get; set; }
-        public string date_updated { get; set; }
+        public DateTime date_created { get; set; }
+        public DateTime date_updated { get; set; }
     }
 
     /// <summary>
