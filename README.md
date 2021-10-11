@@ -8,9 +8,6 @@ Basic service API for billing invoices
 - DAL(Data Access Layer) Entitty Framework
 
 ## Controllers
-> CrudController
-> InvoiceController
-
 ### CrudController
 > Basic db logic requests
 
