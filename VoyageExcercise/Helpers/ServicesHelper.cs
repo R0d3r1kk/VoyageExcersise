@@ -23,7 +23,7 @@ namespace VoyageExcercise.Helpers
         /// <param name="request">TransactionRequest data model</param>
         /// <param name="payment_id">The Payment Id</param>
         /// <returns>true if the transaction was added, false if the update fails</returns>
-        public async Task<bool> AddTransaction(AppDBContext context, TransactionRequest request, int payment_id)
+        public async Task<Transactions> AddTransaction(AppDBContext context, TransactionRequest request, int payment_id)
         {
             try
             {
@@ -37,12 +37,12 @@ namespace VoyageExcercise.Helpers
                 });
 
                 await context.SaveChangesAsync();
-                return true;
+                return t.Entity;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
 
@@ -54,12 +54,17 @@ namespace VoyageExcercise.Helpers
         /// <returns>true if the transaction was deleted, false if the delete fails</returns>
         public async Task<bool> DeleteTransaction(AppDBContext context, int transaction_id)
         {
-            try { 
-                var transaction = context.Transactions.Select(t => t.transaction_id == transaction_id) as Transactions;
+            try {
+                var transaction = GetTransaction(context, transaction_id);
 
-                context.Transactions.Remove(transaction);
-                await context.SaveChangesAsync();
-                return true;
+                if (transaction != null)
+                {
+                    context.Transactions.Remove(transaction);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {
@@ -75,29 +80,33 @@ namespace VoyageExcercise.Helpers
         /// <param name="request">TransactionRequest data model with the new data</param>
         /// <param name="transaction_id">The Transaction ID yout want to edit</param>
         /// <returns> true if the transaction was saved, false if the update fails</returns>
-        public async Task<bool> EditTransaction(AppDBContext context, TransactionRequest request, int transaction_id)
+        public async Task<Transactions> EditTransaction(AppDBContext context, TransactionRequest request, int transaction_id)
         {
             try
             {
-                var t = GetTransaction(context, transaction_id);
+                if (request == null || transaction_id < 0)
+                    return null;
 
+                //check if the transaction exist
+                var t = GetTransaction(context, transaction_id);
                 if (t != null)
                 {
                     t.date_updated = request.date_updated;
-                    t.description = request.description;
+                    t.description = request.description != t.description ? request.description : t.description;
+                    t.service_id = request.service_id != t.service_id ? request.service_id : t.service_id;
 
                     context.Transactions.Update(t);
                     await context.SaveChangesAsync();
 
-                    return true;
+                    return t;
                 }
 
-                return false;
+                return null;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
 
@@ -105,6 +114,8 @@ namespace VoyageExcercise.Helpers
         /// Method <c>GetAllTransactions</c> Get a list of the transactions raw data stored in the db.
         /// </summary>
         /// <param name="context">Application Database Context</param>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Transactions list</returns>
         public List<Transactions> GetAllTransactions(AppDBContext context, int page, int pagesize)
         {
@@ -128,7 +139,7 @@ namespace VoyageExcercise.Helpers
         public Transactions GetTransaction(AppDBContext context, int transaction_id)
         {
             try { 
-                var transaction = context.Transactions.Select(t => t.transaction_id == transaction_id) as Transactions;
+                var transaction = context.Transactions.FirstOrDefault(t => t.transaction_id == transaction_id);
                 return transaction;
             }catch(Exception ex)
             {
@@ -141,12 +152,14 @@ namespace VoyageExcercise.Helpers
 
         #region Payments Methods
 
-            /// <summary>
-            /// Method <c>GetAllPayments</c> Get a list of the payments data stored in the db.
-            /// </summary>
-            /// <param name="context">Application Database Context</param>
-            /// <returns>A Payment list</returns>
-            public List<Payments> GetAllPayments(AppDBContext context, int page, int pagesize)
+        /// <summary>
+        /// Method <c>GetAllPayments</c> Get a list of the payments data stored in the db.
+        /// </summary>
+        /// <param name="context">Application Database Context</param>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
+        /// <returns>A Payment list</returns>
+        public List<Payments> GetAllPayments(AppDBContext context, int page, int pagesize)
             {
                 try
                 {
@@ -170,7 +183,7 @@ namespace VoyageExcercise.Helpers
             {
                 try
                 {
-                    var payment = context.Payments.Select(p => p.payment_id == payment_id) as Payments;
+                    var payment = context.Payments.FirstOrDefault(p => p.payment_id == payment_id) as Payments;
                     return payment;
                 }
                 catch (Exception ex)
@@ -186,11 +199,11 @@ namespace VoyageExcercise.Helpers
             /// <param name="context">Application Database Context</param>
             /// <param name="request">PaymentRequest data model</param>
             /// <returns> true if the payment was added, false if the update fails</returns>
-            public async Task<bool> AddPayment(AppDBContext context, PaymentRequest request)
+            public async Task<Payments> AddPayment(AppDBContext context, PaymentRequest request)
             {
                 try
                 {
-                    var t = context.Payments.Add(new Payments()
+                    var p = context.Payments.Add(new Payments()
                     {
                         payment_amount = request.amount,
                         payment_desc = request.desc,
@@ -200,12 +213,12 @@ namespace VoyageExcercise.Helpers
                     });
 
                     await context.SaveChangesAsync();
-                    return true;
+                    return p.Entity;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    return false;
+                    return null;
                 }
             }
 
@@ -216,34 +229,36 @@ namespace VoyageExcercise.Helpers
             /// <param name="request">PaymentRequest data model with the new data</param>
             /// <param name="payment_id">The payment ID yout want to edit</param>
             /// <returns> true if the payment was saved, false if the update fails</returns>
-            public async Task<bool> EditPayment(AppDBContext context, PaymentRequest request, int payment_id)
+            public async Task<Payments> EditPayment(AppDBContext context, PaymentRequest request, int payment_id)
             {
                 try
                 {
-                    var p = GetPayment(context, payment_id);
+                if (request == null || payment_id < 0)
+                    return null;
 
+                    //check if the payment exist
+                    var p = GetPayment(context, payment_id);
                     if (p != null)
                     {
-
-                        p.payment_amount = request.amount;
-                        p.payment_desc = request.desc;
-                        p.payment_status = request.status;
-                        p.payment_type = request.type;
-                        p.payment_ext_src_response = request.ext_src_response;
+                        p.payment_amount = request.amount != p.payment_amount ? request.amount : p.payment_amount;
+                        p.payment_desc = request.desc != p.payment_desc ? request.desc : p.payment_desc;
+                        p.payment_status = request.status != p.payment_status ? request.status : p.payment_status;
+                        p.payment_type = request.type != p.payment_type ? request.type : p.payment_type;
+                        p.payment_ext_src_response = request.ext_src_response != p.payment_ext_src_response ? request.ext_src_response : p.payment_ext_src_response;
 
                         context.Payments.Update(p);
                         await context.SaveChangesAsync();
 
 
-                        return true;
+                        return p;
                     }
 
-                    return false;
+                    return null;
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    return false;
+                    return null;
                 }
             }
 
@@ -257,11 +272,16 @@ namespace VoyageExcercise.Helpers
             {
                 try
                 {
-                    var payment = context.Payments.Select(p => p.payment_id == payment_id) as Payments;
+                    var payment = GetPayment(context, payment_id);
 
-                    context.Payments.Remove(payment);
-                    await context.SaveChangesAsync();
-                    return true;
+                    if (payment != null)
+                    {
+                        context.Payments.Remove(payment);
+                        await context.SaveChangesAsync();
+                        return true;
+                    }
+
+                    return false;
                 }
                 catch (Exception ex)
                 {
@@ -277,6 +297,8 @@ namespace VoyageExcercise.Helpers
         /// Method <c>GetAllServices</c> Get a list of the services data stored in the db.
         /// </summary>
         /// <param name="context">Application Database Context</param>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Services list</returns>
         public List<CServices> GetAllServices(AppDBContext context, int page, int pagesize)
         {
@@ -301,7 +323,7 @@ namespace VoyageExcercise.Helpers
         {
             try
             {
-                var service = context.CServices.Select(s => s.service_id == service_id) as CServices;
+                var service = context.CServices.FirstOrDefault(s => s.service_id == service_id);
                 return service;
             }
             catch (Exception ex)
@@ -316,22 +338,22 @@ namespace VoyageExcercise.Helpers
         /// <param name="context">Application Database Context</param>
         /// <param name="service_name">name of the service you want to bind</param>
         /// <returns> true if the service was added, false if the update fails</returns>
-        public async Task<bool> AddService(AppDBContext context, string service_name)
+        public async Task<CServices> AddService(AppDBContext context, string service_name)
         {
             try
             {
-                var t = context.CServices.Add(new CServices()
+                var s = context.CServices.Add(new CServices()
                 {
                     service_name = service_name
                 });
 
                 await context.SaveChangesAsync();
-                return true;
+                return s.Entity;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
         /// <summary>
@@ -341,12 +363,12 @@ namespace VoyageExcercise.Helpers
         /// <param name="service_name">The new service name</param>
         /// <param name="service_id">The service ID yout want to edit</param>
         /// <returns> true if the service was saved, false if the update fails</returns>
-        public async Task<bool> EditService(AppDBContext context, string service_name, int service_id)
+        public async Task<CServices> EditService(AppDBContext context, string service_name, int service_id)
         {
             try
             {
+                //check if the transaction exist
                 var s = GetService(context, service_id);
-
                 if (s != null)
                 {
 
@@ -356,15 +378,15 @@ namespace VoyageExcercise.Helpers
                     await context.SaveChangesAsync();
 
 
-                    return true;
+                    return s;
                 }
 
-                return false;
+                return null;
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return false;
+                return null;
             }
         }
         /// <summary>
@@ -377,11 +399,16 @@ namespace VoyageExcercise.Helpers
         {
             try
             {
-                var service = context.CServices.Select(s => s.service_id == service_id) as CServices;
+                var service = GetService(context, service_id);
 
-                context.CServices.Remove(service);
-                await context.SaveChangesAsync();
-                return true;
+                if (service != null)
+                {
+                    context.CServices.Remove(service);
+                    await context.SaveChangesAsync();
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {

@@ -32,7 +32,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="request">TransactionRequest data model</param>
         /// <param name="payment_id">The Payment Id</param>
         /// <returns> true if the transaction was added, false if the update fails</returns>
-        public Task<bool> AddTransaction(AppDBContext context, TransactionRequest request, int payment_id);
+        public Task<Transactions> AddTransaction(AppDBContext context, TransactionRequest request, int payment_id);
         /// <summary>
         /// Method <c>EditTransaction</c> Update a transaction stored in the db.
         /// </summary>
@@ -40,7 +40,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="request">TransactionRequest data model with the new data</param>
         /// <param name="transaction_id">The Transaction ID yout want to edit</param>
         /// <returns> true if the transaction was saved, false if the update fails</returns>
-        public Task<bool> EditTransaction(AppDBContext context, TransactionRequest request, int transaction_id);
+        public Task<Transactions> EditTransaction(AppDBContext context, TransactionRequest request, int transaction_id);
         /// <summary>
         /// Method <c>DeleteTransaction</c> Delete a transaction stored in the db.
         /// </summary>
@@ -70,7 +70,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="context">Application Database Context</param>
         /// <param name="request">PaymentRequest data model</param>
         /// <returns> true if the payment was added, false if the update fails</returns>
-        public Task<bool> AddPayment(AppDBContext context, PaymentRequest request);
+        public Task<Payments> AddPayment(AppDBContext context, PaymentRequest request);
         /// <summary>
         /// Method <c>EditPayment</c> Update a payment stored in the db.
         /// </summary>
@@ -78,7 +78,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="request">PaymentRequest data model with the new data</param>
         /// <param name="payment_id">The payment ID yout want to edit</param>
         /// <returns> true if the payment was saved, false if the update fails</returns>
-        public Task<bool> EditPayment(AppDBContext context, PaymentRequest request, int payment_id);
+        public Task<Payments> EditPayment(AppDBContext context, PaymentRequest request, int payment_id);
         /// <summary>
         /// Method <c>DeletePayment</c> Delete a payment stored in the db.
         /// </summary>
@@ -108,7 +108,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="context">Application Database Context</param>
         /// <param name="service_name">name of the service you want to bind</param>
         /// <returns> true if the service was added, false if the update fails</returns>
-        public Task<bool> AddService(AppDBContext context, string service_name);
+        public Task<CServices> AddService(AppDBContext context, string service_name);
         /// <summary>
         /// Method <c>EditService</c> Update a service stored in the db.
         /// </summary>
@@ -116,7 +116,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="service_name">The new service name</param>
         /// <param name="service_id">The service ID yout want to edit</param>
         /// <returns> true if the service was saved, false if the update fails</returns>
-        public Task<bool> EditService(AppDBContext context, string service_name, int service_id);
+        public Task<CServices> EditService(AppDBContext context, string service_name, int service_id);
         /// <summary>
         /// Method <c>DeleteService</c> Delete a service stored in the db.
         /// </summary>

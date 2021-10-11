@@ -80,8 +80,8 @@ namespace VoyageExcercise.Controllers
         {
             var t = await _services.AddTransaction(_context, request, transaction_id);
 
-            if (t)
-                return Created("Transaction", t);
+            if (t != null)
+                return Created("Transaction", JsonConvert.SerializeObject(t));
             else
                 return StatusCode(304);//Not Modified
                
@@ -98,8 +98,8 @@ namespace VoyageExcercise.Controllers
         {
             var t = await _services.EditTransaction(_context, request, transaction_id);
 
-            if (t)
-                return Ok(t);
+            if (t != null)
+                return Ok(JsonConvert.SerializeObject(t));
             else
                 return StatusCode(304);//Not Modified
 
@@ -172,8 +172,8 @@ namespace VoyageExcercise.Controllers
         {
             var p = await _services.AddPayment(_context, request);
 
-            if (p)
-                return Created("Payment", p);
+            if (p != null)
+                return Created("Payment", JsonConvert.SerializeObject(p));
             else
                 return StatusCode(304);//Not Modified
 
@@ -190,8 +190,8 @@ namespace VoyageExcercise.Controllers
         {
             var p = await _services.EditPayment(_context, request, payment_id);
 
-            if (p)
-                return Ok(p);
+            if (p!= null)
+                return Ok(JsonConvert.SerializeObject(p));
             else
                 return StatusCode(304);//Not Modified
 
@@ -264,8 +264,8 @@ namespace VoyageExcercise.Controllers
         {
             var s = await _services.AddService(_context, service_name);
 
-            if (s)
-                return Created("Service", s);
+            if (s != null)
+                return Created("Service", JsonConvert.SerializeObject(s));
             else
                 return StatusCode(304);//Not Modified
 
@@ -282,8 +282,8 @@ namespace VoyageExcercise.Controllers
         {
             var s = await _services.EditService(_context, service_name, service_id);
 
-            if (s)
-                return Ok(s);
+            if (s != null)
+                return Ok(JsonConvert.SerializeObject(s));
             else
                 return StatusCode(304);//Not Modified
 
