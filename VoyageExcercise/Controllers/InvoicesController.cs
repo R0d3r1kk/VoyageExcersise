@@ -47,6 +47,24 @@ namespace VoyageExcercise.Controllers
         }
 
         /// <summary>
+        /// Get invoice by range
+        /// </summary>
+        /// <response code="200">Returns an invoice list</response>
+        /// <response code="400">If the start date is incorrect or the en date is incorrect</response>
+        [HttpPost("GetRangedInvoice")]
+        public ActionResult GetRangedInvoice(DateTime start, DateTime end)
+        {
+            if (start.ToString() == null || end.ToString() == null)
+            {
+                return BadRequest();
+            }
+
+            var list = _inv_services.GetRangedInvoice(_context, start, end);
+
+            return Ok(JsonConvert.SerializeObject(list));
+        }
+
+        /// <summary>
         /// Get an invoice by id
         /// </summary>
         /// <response code="200">Returns the invoice data model</response>

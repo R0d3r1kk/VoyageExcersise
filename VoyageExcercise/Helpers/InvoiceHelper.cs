@@ -51,5 +51,26 @@ namespace VoyageExcercise.Helpers
                 return null;
             }
         }
+
+        /// <summary>
+        /// Method <c>GetRangedInvoice</c> Get an invoice by a range of dates.
+        /// </summary>
+        /// <param name="context">Application Database Context</param>
+        /// <param name="start_date">the start date you want to query</param>
+        /// <param name="start_date">the end date you want to query</param>
+        /// <returns>An Invoce list</returns>
+        public List<Invoice> GetRangedInvoice(AppDBContext context, DateTime start_date, DateTime end_date)
+        {
+            try
+            {
+                var invoices = context.Invoice.Where(i => DateTime.Parse(i.date) >= start_date && DateTime.Parse(i.date) <= end_date).ToList();
+                return invoices;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return null;
+            }
+        }
     }
 }
