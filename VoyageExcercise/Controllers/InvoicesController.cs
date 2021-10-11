@@ -39,9 +39,16 @@ namespace VoyageExcercise.Controllers
         /// <summary>
         /// Generate all the invoices from db.
         /// </summary>
+        /// <remarks>
+        /// Sample request:
+        /// page = 0
+        /// pagesize = 10
+        /// </remarks>
+        /// <param name="page">Number of the page</param>
+        /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Transactions List</returns>    
         [HttpPost("GenInvoice")]
-        public List<Invoice> GenInvoice(int page, int pagesize)
+        public List<Invoice> GenInvoice(int page = 0, int pagesize = 10)
         {
             return _inv_services.GetInvoices(_context, page, pagesize);
         }
@@ -56,7 +63,12 @@ namespace VoyageExcercise.Controllers
         {
             if (start.ToString() == null || end.ToString() == null)
             {
-                return BadRequest();
+                return BadRequest("the dates musn't be null");
+            }
+
+            if(start.ToString() == end.ToString())
+            {
+                BadRequest("The dates musn't be equal");
             }
 
             var list = _inv_services.GetRangedInvoice(_context, start, end);
@@ -115,8 +127,8 @@ namespace VoyageExcercise.Controllers
                     //store of the transaction with the payment binded by the id
                     var transaction = await _crud_services.AddTransaction(_context,
                         new TransactionRequest() {
-                            date_created = DateTime.Now.ToLongDateString(),
-                            date_updated = DateTime.Now.ToLongDateString(),
+                            date_created = DateTime.Now,
+                            date_updated = DateTime.Now,
                             description = request.transaction_desc,
                             service_id = ((int)request.service_id)
                         },

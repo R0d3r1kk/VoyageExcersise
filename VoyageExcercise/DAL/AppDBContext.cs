@@ -3,6 +3,7 @@ using VoyageExcercise.DAL.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using System.IO;
+using System.Globalization;
 
 namespace VoyageExcercise.DAL
 {
@@ -36,9 +37,21 @@ namespace VoyageExcercise.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Transactions>()
-                .Property(e => e.transaction_id)
-                .ValueGeneratedOnAdd();
+            modelBuilder.Entity<Transactions>(
+                t =>
+                {
+                    t.Property(e => e.transaction_id)
+                    .ValueGeneratedOnAdd();
+
+                    t.Property(e => e.date_created)
+                     .HasConversion(
+                        dateValue => dateValue.ToLongDateString(),
+                        stringValue => Convert.ToDateTime(stringValue)
+                    );
+                }
+                );
+               
+
             modelBuilder.Entity<Payments>()
                 .Property(e => e.payment_id)
                 .ValueGeneratedOnAdd();
@@ -52,6 +65,11 @@ namespace VoyageExcercise.DAL
                     eb.HasNoKey();
                     eb.ToView("Invoice_tansaction_payment");
                     eb.Property(v => v.id).HasColumnName("id");
+                    eb.Property(e => e.date)
+                    .HasConversion(
+                       dateValue => dateValue.ToLongDateString(),
+                       stringValue => Convert.ToDateTime(stringValue)
+                   );
                 });
                 
         }

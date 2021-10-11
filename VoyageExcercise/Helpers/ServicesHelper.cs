@@ -117,7 +117,7 @@ namespace VoyageExcercise.Helpers
         /// <param name="page">Number of the page</param>
         /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Transactions list</returns>
-        public List<Transactions> GetAllTransactions(AppDBContext context, int page, int pagesize)
+        public List<Transactions> GetAllTransactions(AppDBContext context, int page = 0, int pagesize = 10)
         {
             try
             {
@@ -159,7 +159,7 @@ namespace VoyageExcercise.Helpers
         /// <param name="page">Number of the page</param>
         /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Payment list</returns>
-        public List<Payments> GetAllPayments(AppDBContext context, int page, int pagesize)
+        public List<Payments> GetAllPayments(AppDBContext context, int page = 0, int pagesize = 10)
             {
                 try
                 {
@@ -300,7 +300,7 @@ namespace VoyageExcercise.Helpers
         /// <param name="page">Number of the page</param>
         /// <param name="pagesize">Number of elements of that page</param>
         /// <returns>A Services list</returns>
-        public List<CServices> GetAllServices(AppDBContext context, int page, int pagesize)
+        public List<CServices> GetAllServices(AppDBContext context, int page = 0, int pagesize = 10)
         {
             try
             {

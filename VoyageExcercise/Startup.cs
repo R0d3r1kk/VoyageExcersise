@@ -43,7 +43,7 @@ namespace VoyageExcercise
                 c.SwaggerDoc("v1",
                     new OpenApiInfo
                     {
-                        Title = ".net Core Voyage API",
+                        Title = ".Net Core Voyage API",
                         Version = "v1",
                         Contact = new OpenApiContact
                         {
