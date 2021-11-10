@@ -17,8 +17,10 @@ namespace VoyageExcercise.DAL
         /// </summary>
         public AppDBContext(DbContextOptions options) :base(options)
         {
-
+            
         }
+
+
 
         /// <summary>
         /// Transactions Dataset
@@ -34,6 +36,7 @@ namespace VoyageExcercise.DAL
         public DbSet<CServices> CServices { get; set; }
 
         public DbSet<Invoice> Invoice { get; set; }
+        public DbSet<AppUser> AppUser { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -71,7 +74,20 @@ namespace VoyageExcercise.DAL
                        stringValue => Convert.ToDateTime(stringValue)
                    );
                 });
-                
+
+            modelBuilder.Entity<AppUser>(
+               eb =>
+               {
+                   //eb.ToView("Invoice_tansaction_payment");
+                   eb.Property(v => v.id).HasColumnName("id").ValueGeneratedOnAdd();
+
+                   eb.Property(e => e.date_created)
+                   .HasConversion(
+                      dateValue => dateValue.ToLongDateString(),
+                      stringValue => Convert.ToDateTime(stringValue)
+                  );
+               });
+
         }
     }
 }

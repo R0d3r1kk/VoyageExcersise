@@ -18,6 +18,7 @@ namespace VoyageExcercise.Interfaces
         /// <param name="context">Application Database Context</param>
         /// <returns>A Transaction list</returns>
         public List<Transactions> GetAllTransactions(AppDBContext context, int page, int pagesize);
+
         /// <summary>
         /// Method <c>GetTransaction</c> Get an specific transaction stored in db
         /// </summary>
