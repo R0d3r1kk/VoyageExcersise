@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using VoyageExcercise.DAL;
 using VoyageExcercise.Helpers;
 using VoyageExcercise.Interfaces;
+using VoyageExcercise.Services;
 
 namespace VoyageExcercise
 {
@@ -36,8 +37,8 @@ namespace VoyageExcercise
         protected void ConfigureDefaultServices(IServiceCollection services)
         {
             //dependency injection
-            services.AddTransient<IServices, ServicesHelper>();
-            services.AddTransient<IInvoice, InvoiceHelper>();
+            services.AddScoped<IServices, ServicesHelper>();
+            services.AddScoped<IInvoice, InvoiceHelper>();
             services.AddSwaggerGen(c => {
                 //set Api Info
                 c.SwaggerDoc("v1",
@@ -68,6 +69,12 @@ namespace VoyageExcercise
                 Configuration.GetConnectionString("cs"),
                 builder => builder.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name)
                 ));
+
+            services.AddCustomMediatR(new Models.MediatorDescriptionOptions()
+            {
+                StartupClassType = typeof(Startup),
+                Assembly = Configuration["Assembly:Mediator"].Split("|", StringSplitOptions.RemoveEmptyEntries)
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

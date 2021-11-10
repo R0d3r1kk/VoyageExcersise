@@ -14,6 +14,7 @@ namespace VoyageExcercise.Helpers
     /// </summary>
     public class ServicesHelper: IServices
     {
+
         #region Transactions Methods
 
         /// <summary>

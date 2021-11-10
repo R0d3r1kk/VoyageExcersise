@@ -49,4 +49,24 @@ namespace VoyageExcercise.Models
 
         public string ext_src_response { get; set; }
     }
+
+    /// <summary>
+    /// User Request Model
+    /// </summary>
+    public class UserRequest
+    {
+        public string name { get; set; }
+        public string account { get; set; }
+        public string password { get; set; }
+    }
+
+    /// <summary>
+    /// Login Request Model
+    /// </summary>
+    public class LoginRequest
+    {
+        public string account { get; set; }
+        public string password { get; set; }
+        public string token { get; set; }
+    }
 }

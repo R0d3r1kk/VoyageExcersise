@@ -18,6 +18,10 @@
     <None Remove="Interfaces\" />
     <None Remove="Newtonsoft.Json" />
     <None Remove="DAL\Models\" />
+    <None Remove="MediatR" />
+    <None Remove="MediatR.Extensions.Microsoft.DependencyInjection" />
+    <None Remove="Services\" />
+    <None Remove="Dapper" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
@@ -26,6 +30,7 @@
     <Folder Include="Helpers\" />
     <Folder Include="Interfaces\" />
     <Folder Include="DAL\Models\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
@@ -33,6 +38,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.2" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="Dapper" Version="2.0.123" />
   </ItemGroup>
 
 </Project>
